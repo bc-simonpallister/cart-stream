@@ -1,0 +1,74 @@
+@url=https://api.bigcommerce.com/stores/{{$dotenv STORE_ID}}/{{version}}
+@version=v3
+
+POST http://localhost:3000/listen
+Content-Type: application/json
+Accept: application/json
+Authorization : "Bearer yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoX3Rva2VuIjoic3locmZiazI1dmNpNWF2ZHo4bG44eW82MXlndDgzZSIsInN0b3JlX2lkIjoiZTczc2g5MHl5MiIsImlhdCI6MTYwODMyNDAwMSwiZXhwIjoxNjEwOTE2MDAxfQ.EfOsG7pfoT5HpNhxaTmPkl3D-oa496oFM7uyZsoNugg"
+
+{
+    "scope": "store/cart/lineItem/created",
+    "store_id": "1025646",
+    "data": {
+        "type": "cart_line_item",
+        "id": "570eac3e-8afa-49b2-b228-699e610efe68",
+        "cartId": "b0386708-fef3-45de-9d8b-fbe3031450a4"
+    },
+    "hash": "3df591b90b87d35b6b49f9a8f8cb7a4fabc05290",
+    "created_at": 1561481786,
+    "producer": "stores/e73sh90yy2"
+}
+###
+
+POST https://cart-stream.loca.lt/listen
+Content-Type: application/json
+Accept: application/json
+
+{
+    "scope": "store/cart/lineItem/created",
+    "store_id": "1025646",
+    "data": {
+        "type": "cart_line_item",
+        "id": "570eac3e-8afa-49b2-b228-699e610efe68",
+        "cartId": "b0386708-fef3-45de-9d8b-fbe3031450a4"
+    },
+    "hash": "3df591b90b87d35b6b49f9a8f8cb7a4fabc05290",
+    "created_at": 1561481786,
+    "producer": "stores/e73sh90yy2"
+}
+###
+GET https://cart-stream.loca.lt
+Content-Type: application/json
+Accept: application/json
+
+###
+POST http://localhost:3000/users/login
+X-Store-Id: {{$dotenv STORE_ID}}
+X-Auth-token: {{$dotenv ACCESS_TOKEN}}
+Content-Type: application/json
+
+###
+POST {{url}}/hooks
+X-Auth-token: {{$dotenv ACCESS_TOKEN}}
+Content-Type: application/json
+
+{
+  "scope": "store/cart/lineItem/*",
+  "destination": "https://cart-stream.loca.lt/listen"
+}
+
+###
+
+//  Update a Webhook
+//  https://developer.bigcommerce.com/api-reference/store-management/webhooks/webhooks/updateawebhook
+PUT {{url}}/hooks/21174212
+X-Auth-token: {{$dotenv ACCESS_TOKEN}}
+Content-Type: application/json
+
+{
+  "scope": "store/cart/lineItem/*",
+  "destination": "https://cart-stream.loca.lt/listen",
+  "headers" : {
+      "authorization" : "Bearer yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoX3Rva2VuIjoic3locmZiazI1dmNpNWF2ZHo4bG44eW82MXlndDgzZSIsInN0b3JlX2lkIjoiZTczc2g5MHl5MiIsImlhdCI6MTYwODMyNDAwMSwiZXhwIjoxNjEwOTE2MDAxfQ.EfOsG7pfoT5HpNhxaTmPkl3D-oa496oFM7uyZsoNugg"
+  }
+}
