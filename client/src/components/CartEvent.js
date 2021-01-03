@@ -66,7 +66,7 @@ const CartEvent = ({event}) =>{
               </Tooltip>
             </GridItem>
             <GridItem>
-              <Small margin="xxSmall">{total_items} / {total_items} </Small>
+              <Small margin="xxSmall">{line_items} / {total_items} </Small>
             </GridItem>
             <GridItem>
               <Link href="#"><ShoppingCartIcon  color="secondary40" size="medium"/></Link>
