@@ -1,0 +1,20 @@
+header {
+  margin: 20px;
+}
+.container {
+  margin:10px;
+  padding:10px;
+  display: flex;
+  height:100%;
+}
+
+.stream {
+  width:100%;
+}
+
+.cart, .customer {
+  width:300px;
+  margin:0 0 10px 10px;
+  padding:10px;
+  height:50%;
+}

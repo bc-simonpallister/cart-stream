@@ -21,21 +21,46 @@
       crossorigin="anonymous"></script>
     </script>
     <script>
-      const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoX3Rva2VuIjoic3locmZiazI1dmNpNWF2ZHo4bG44eW82MXlndDgzZSIsInN0b3JlX2lkIjoiZTczc2g5MHl5MiIsImlhdCI6MTYwODMyMDMxNiwiZXhwIjoxNjEwOTEyMzE2fQ.0I7QKEg98rzNHg37TqGgzLv-bs26VCNMdKpe6OV2JVM"
-      const socket = io.connect('http://localhost:3000', {
-        query: {token}
+
+      async function login(auth_token, store_id){
+        const response = await fetch('http://localhost:3000/users/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Store-Id': store_id,
+            'X-Auth-token': auth_token
+          }
+        });
+        return response.json();
+      }
+
+
+      const auth_token = 'syhrfbk25vci5avdz8ln8yo61ygt83e';
+      const store_id = 'e73sh90yy2';
+
+      console.log(store_id, auth_token);
+      login(auth_token, store_id).then(data => {
+        const token = data.token
+        console.log(token);
+        const socket = io.connect('http://localhost:3000', {
+          query: {token}
+        });
+        socket.on('connect', () => {
+          console.log('Connected to server...')
+          socket.emit('cart_event','ACK')
+        })
+        socket.on('disconnect', (reason) => {
+          console.log('Disconnected from server...'+reason)
+        })
+        socket.on('cart_event', (cart_event) => {
+          console.log('Incoming message: '+cart_event)
+        })
+        socket.on("connect_error", err => {
+          console.log(err.message); // not authorized
+        });
       });
 
-      socket.on('connect', () => {
-        console.log(socket)
-        console.log('Connected to server...')
-      })
-      socket.on('lineitem', (lineitem) => {
-        console.log(lineitem)
-      })
-      socket.on("connect_error", err => {
-        console.log(err.message); // not authorized
-      });
+
 
     </script>
   </body>
