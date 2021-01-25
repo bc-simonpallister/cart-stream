@@ -3,7 +3,7 @@ import Cart from '../Cart'
 import Customer from '../Customer'
 import './Layout.css'
 
-import { H1, H2, Grid, GridItem} from '@bigcommerce/big-design'
+import { H1, Grid, GridItem } from '@bigcommerce/big-design'
 
 const Layout =({children}) =>{
 

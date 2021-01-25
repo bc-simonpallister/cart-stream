@@ -1,4 +1,4 @@
-import { Box, Text, Small, Grid, Link, GridItem, Tooltip } from '@bigcommerce/big-design'
+import { Box, Small, Grid, Link, GridItem, Tooltip } from '@bigcommerce/big-design'
 import { BaselineHelpIcon } from '@bigcommerce/big-design-icons'
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded'
 import AccessTimeRoundedIcon from '@material-ui/icons/AccessTimeRounded';
@@ -8,6 +8,10 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 const CartEvent = ({event}) =>{
 
   const {req, cart} = event
+
+  const handleClick = (index, e) => {
+    console.log(event.cart[index])
+  }
 
   return (
     <Box border="box" borderRadius="normal" padding="medium">
@@ -54,11 +58,11 @@ const CartEvent = ({event}) =>{
             <GridItem><Small margin="xxSmall">item {event_type}</Small></GridItem>
             <GridItem>
               <Tooltip trigger={<BaselineHelpIcon color="secondary40" size="medium"/>} placement="top">
-                Cart Subtotal / Cart Total
+                (Currency) Cart Subtotal / Cart Total
               </Tooltip>
             </GridItem>
             <GridItem>
-              <Small margin="xxSmall">{cart.currency.code} {cart.base_amount.toFixed(2)}/{cart.cart_amount.toFixed(2)} </Small>
+              <Small margin="xxSmall">({cart.currency.code}) {cart.base_amount.toFixed(2)}/{cart.cart_amount.toFixed(2)} </Small>
             </GridItem>
             <GridItem>
               <Tooltip trigger={<BaselineHelpIcon color="secondary40" size="medium"/>} placement="top">
@@ -69,7 +73,7 @@ const CartEvent = ({event}) =>{
               <Small margin="xxSmall">{line_items} / {total_items} </Small>
             </GridItem>
             <GridItem>
-              <Link href="#"><ShoppingCartIcon  color="secondary40" size="medium"/></Link>
+              <Link onClick={(e) => handleClick(index, e)} href="#"><ShoppingCartIcon  color="primary" size="medium"/></Link>
             </GridItem>
           </Grid>
         )   

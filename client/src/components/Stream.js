@@ -2,6 +2,8 @@ import React from "react"
 import io from "socket.io-client"
 import { Panel, Badge, Grid} from '@bigcommerce/big-design'
 import CartEvent from './CartEvent'
+import EventIcon from '@material-ui/icons/Event';
+
 const ENDPOINT = "http://localhost:3000";
 const auth_token = 'syhrfbk25vci5avdz8ln8yo61ygt83e';
 const store_id = 'e73sh90yy2';
