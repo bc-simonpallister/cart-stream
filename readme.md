@@ -1,4 +1,4 @@
-# BigCommerce Cart Monitor Stream
+# BigCommerce Cart Stream
 
 View and change the contents of customer's carts in realtime using webhooks & sockets
 
