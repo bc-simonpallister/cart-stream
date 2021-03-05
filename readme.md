@@ -15,9 +15,13 @@ Credentials are currently hard coded:
 
 Add `STORE_ID` & `STORE_ID` to .env.template & rename to .env (see Local Tunnel below for running locally)
 
-`cd server`
+`
+cd server
+`
 
-`npm run dev`
+`
+npm run dev
+`
 
 ### Client
 
