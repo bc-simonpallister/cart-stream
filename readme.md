@@ -13,15 +13,11 @@ App is in two parts:
 
 Credentials are currently hard coded:
 
-Add `STORE_ID` & `STORE_ID` to .env.template & rename to .env (see Local Tunnel below for running locally)
+Add `STORE_ID` & `AUTH_TOKEN` to .env.template & rename to .env (see Local Tunnel below for running locally)
 
-`
-cd server
-`
+    cd server
+    npm run dev
 
-`
-npm run dev
-`
 
 ### Client
 
@@ -29,17 +25,15 @@ Credentials are currently hard coded:
 
 Add `STORE_ID` & `STORE_ID` to .env.template & rename to .env
 
-`cd client`
-
-`npm run start`
+    cd client
+    npm run start
 
 ### Local Tunnel
 
 For developing locallly, there is a script that will create a local tunnel (using [localtunnel](https://github.com/localtunnel/localtunnel)) to creates a webhook on the specified server using credentials
 
-`cd server`
-
-`npm run tunnel`
+    cd server
+    npm run tunnel
 
 ---
 ## TODO
