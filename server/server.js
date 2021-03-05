@@ -13,6 +13,7 @@ const { v4: uuidv4 } = require('uuid')
 //Routes
 const userRouter = require('./routes/users');
 const setupRouter = require('./routes/setup');
+const cartRouter = require('./routes/carts');
 
 //Constants
 const SECRET_KEY = process.env.SECRET_KEY
@@ -24,7 +25,9 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use('/users', userRouter);
 app.use('/setup', setupRouter);
+app.use('/carts', cartRouter);
 
+let event_storage = []
 
 //Configure Socket.io
 const server = http.createServer(app)
@@ -51,8 +54,9 @@ io.use(function(socket, next){
   const {store_id} = socket.decoded
 
   socket.join(store_id)
-  //io.to(.store_id).emit('cart_event', 'test message') 
+
   console.log(`${store_id} / ${socket.id} connected...`)
+  io.to(store_id).emit('system', `Connected to ${store_id}`) 
 
   socket.on('disconnect', (reason) => {
     console.log(`${store_id} disconnected - ${reason}`)
@@ -65,45 +69,48 @@ io.use(function(socket, next){
 // Listener for cart webhook
 app.post('/listen', validateToken, async (req, res) => {
 
+  console.log('incoming webhook')
   //Immediately respond to the webhook
-  res.json()
+  res.json({message: 'Webhook received'})
 
   const { body } = req
 
   const store_id = body.producer.split('/')[1]
-  const cartId = body.scope.split('/')[1] === cart ? body.data.id : body.data.cartId
-  console.log('cartId', cartId)
+  const cartId = body.data.type === 'cart_line_item' ? body.data.cartId : body.data.id
 
-  const cartData = await cart.getCart(cartId, req.auth)
-  const customerData = cartData.data.customer_id > 0 ? await customer.getCustomer(cartData.data.customer_id, req.auth) : []
+  if (body.data.type === 'cart'){
+    const cartData = await cart.getCart(cartId, req.auth)
+    const customerData = cartData.data.customer_id > 0 ? await customer.getCustomer(cartData.data.customer_id, req.auth) : []
+  
+    const data = {
+      id: cartData.data.id,
+      date: new Date(),
+      storeid: store_id,
+      req: body,
+      cart: cartData.data,
+      customer: customerData.data
+    }
 
-  const data = {
-    id: uuidv4(),
-    date: new Date(),
-    cartId: cartId,
-    req: [body],
-    cart: [cartData.data], 
-    customer: customerData.data
+    io.to(store_id).emit('cart_event', data) 
   }
 
-  io.to(store_id).emit('cart_event', data) 
-  console.log(`meesage sent to ${store_id}`)
 })
 
 async function validateToken(req, res, next){
   const bearerHeader = req.headers['authorization'];
+  //console.log('bearerHeader',bearerHeader)
   if(typeof bearerHeader !== 'undefined') {
     const bearer = bearerHeader.split(' ');
     const bearerToken = bearer[1];
     req.token = bearerToken;
-
 
     let authData
     try {
       authData = await authJWT(bearerToken)
       req.auth = authData
     } catch (err) {
-      res.status(403).json({message:'Not Allowed'});
+      console.log(err)
+      res.status(403).json({message:err.message});
     }
 
     next();

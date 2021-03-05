@@ -1,10 +1,11 @@
 @url=https://api.bigcommerce.com/stores/{{$dotenv STORE_ID}}/{{version}}
 @version=v3
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoX3Rva2VuIjoic3locmZiazI1dmNpNWF2ZHo4bG44eW82MXlndDgzZSIsInN0b3JlX2lkIjoiZTczc2g5MHl5MiIsImlhdCI6MTYxMTg4ODQ1NSwiZXhwIjoxNjE0NDgwNDU1fQ.vYw1JyWeGyqXPSVvTzrOCxeeEODSZ8BSSVUnuS5WdMI
 
 POST http://localhost:3000/listen
 Content-Type: application/json
 Accept: application/json
-Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoX3Rva2VuIjoic3locmZiazI1dmNpNWF2ZHo4bG44eW82MXlndDgzZSIsInN0b3JlX2lkIjoiZTczc2g5MHl5MiIsImlhdCI6MTYwOTIxNjQ5NSwiZXhwIjoxNjExODA4NDk1fQ.UJQbAh6spROKVf3wYOTg9IcPZH6KEJhI3_XzfiIbENU
+Authorization : Bearer {{token}}
 
 {
     "scope": "store/cart/lineItem/created",
@@ -12,28 +13,27 @@ Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoX3Rva2VuIjoi
     "data": {
         "type": "cart_line_item",
         "id": "570eac3e-8afa-49b2-b228-699e610efe68",
-        "cartId": "1bcd5fe6-ca5b-446d-87f4-2745b00adb72"
+        "cartId": "e013b4e3-52af-4a3f-9b5f-260a5f097944"
     },
     "hash": "3df591b90b87d35b6b49f9a8f8cb7a4fabc05290",
     "created_at": 1561481786,
     "producer": "stores/e73sh90yy2"
 }
 ###
-
 POST https://cart-stream.loca.lt/listen
 Content-Type: application/json
 Accept: application/json
+authorization : Bearer {{token}}
 
 {
-    "scope": "store/cart/lineItem/created",
+    "scope": "store/cart/created",
     "store_id": "1025646",
     "data": {
-        "type": "cart_line_item",
-        "id": "570eac3e-8afa-49b2-b228-699e610efe68",
-        "cartId": "b0386708-fef3-45de-9d8b-fbe3031450a4"
+        "type": "cart",
+        "id": "8040c030-406a-4638-8845-7faa96f88aac"
     },
-    "hash": "3df591b90b87d35b6b49f9a8f8cb7a4fabc05290",
-    "created_at": 1561481786,
+    "hash": "352e4afc6dd3fc85ea26bfdf3f91852604d57528",
+    "created_at": 1561482670,
     "producer": "stores/e73sh90yy2"
 }
 ###
@@ -67,7 +67,7 @@ Content-Type: application/json
   "scope": "store/cart/*",
   "destination": "https://cart-stream.loca.lt/listen",
   "headers" : {
-      "authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoX3Rva2VuIjoic3locmZiazI1dmNpNWF2ZHo4bG44eW82MXlndDgzZSIsInN0b3JlX2lkIjoiZTczc2g5MHl5MiIsImlhdCI6MTYwOTIxNjQ5NSwiZXhwIjoxNjExODA4NDk1fQ.UJQbAh6spROKVf3wYOTg9IcPZH6KEJhI3_XzfiIbENU"
+      "authorization" : "Bearer {{token}}"
   }
 }
 
@@ -81,23 +81,27 @@ Content-Type: application/json
   "scope": "store/cart/lineItem/*",
   "destination": "https://cart-stream.loca.lt/listen",
   "headers" : {
-      "authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoX3Rva2VuIjoic3locmZiazI1dmNpNWF2ZHo4bG44eW82MXlndDgzZSIsInN0b3JlX2lkIjoiZTczc2g5MHl5MiIsImlhdCI6MTYwOTIxNjQ5NSwiZXhwIjoxNjExODA4NDk1fQ.UJQbAh6spROKVf3wYOTg9IcPZH6KEJhI3_XzfiIbENU"
-  }
+      "authorization" : "Bearer {{token}}"
+  },
+  "is_active": true,
 }
-###PUT {{url}}/hooks/21174212
+###
+
+PUT {{url}}/hooks/21174212
 X-Auth-token: {{$dotenv ACCESS_TOKEN}}
 Content-Type: application/json
 
 {
-  "scope": "store/cart/lineItem/*",
-  "destination": "https://cart-stream.loca.lt/listen",
+  "scope": "store/cart/*",
+  "destination": "https://breezy-frog-26.loca.lt/listen",
   "headers" : {
-      "authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoX3Rva2VuIjoic3locmZiazI1dmNpNWF2ZHo4bG44eW82MXlndDgzZSIsInN0b3JlX2lkIjoiZTczc2g5MHl5MiIsImlhdCI6MTYwOTIxNjQ5NSwiZXhwIjoxNjExODA4NDk1fQ.UJQbAh6spROKVf3wYOTg9IcPZH6KEJhI3_XzfiIbENU"
-  }
+      "authorization" : "Bearer {{token}}"
+  },
+  "is_active": true
 }
 ###
 
-DELETE {{url}}/hooks/21206583
+DELETE {{url}}/hooks/21304802
 X-Auth-token: {{$dotenv ACCESS_TOKEN}}
 Content-Type: application/json
 

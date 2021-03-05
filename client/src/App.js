@@ -1,15 +1,19 @@
-import { GlobalStyles} from '@bigcommerce/big-design'
-import Layout from './components/Layout/Layout'
+//import useLocalStorage from './hooks/useLocalStorage'
+import { SocketProvider } from './context/SocketProvider' 
+import { CartEventsProvider } from './context/CartEventsProvider'
+import Dashboard from './components/Dashboard'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
+  //const [id, setId] = useLocalStorage('id')
+
   return (
-    <div className="App">
-      <GlobalStyles/>
-      <div>
-        <Layout/>
-      </div>
-    </div>
-  );
+    <SocketProvider id="1">
+      <CartEventsProvider>
+        <Dashboard/>
+      </CartEventsProvider>
+    </SocketProvider>
+  )
 }
 
 export default App;

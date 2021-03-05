@@ -1,22 +1,22 @@
 {
-  "name": "client",
+  "name": "clientv2",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@bigcommerce/big-design": "^0.26.2",
-    "@material-ui/core": "^4.11.2",
-    "@material-ui/icons": "^4.11.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "cors": "^2.8.5",
-    "material-icons": "^0.5.1",
+    "bootstrap": "^4.6.0",
+    "date-fns": "^2.16.1",
+    "dotenv": "^8.2.0",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.32",
     "react": "^17.0.1",
+    "react-bootstrap": "^1.4.3",
     "react-dom": "^17.0.1",
-    "react-flexbox-grid": "^2.1.2",
+    "react-moment": "^1.1.1",
     "react-scripts": "4.0.1",
-    "socket.io-client": "^3.0.4",
-    "styled-components": "^5.2.1",
+    "socket.io-client": "^3.1.0",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
@@ -42,9 +42,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "css-loader": "^5.0.1",
-    "style-loader": "^2.0.0"
   }
 }
