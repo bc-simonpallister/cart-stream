@@ -23,7 +23,7 @@ Add `STORE_ID` & `AUTH_TOKEN` to .env.template & rename to .env (see Local Tunne
 
 Credentials are currently hard coded:
 
-Add `STORE_ID` & `STORE_ID` to .env.template & rename to .env
+Add `REACT_APP_STORE_ID` & `REACT_APP_STORE_ID` to .env.template & rename to .env
 
     cd client
     npm run start
