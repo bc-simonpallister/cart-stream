@@ -9,16 +9,13 @@ const STORE_ID = process.env.STORE_ID;
 (async () => {
   const tunnel = await localtunnel({ port: 3000, subdomain: SUBDOMAIN });
 
-
-
-
   try {
     console.log("Fetching token")
     const loginResponse = await axios.post(`http://localhost:3000/users/login`, null, 
     {
       headers : {
-        'X-Store-Id': STORE_ID,
-        'X-Auth-token': ACCESS_TOKEN      
+        'x-store-id': STORE_ID,
+        'x-auth-token': ACCESS_TOKEN      
       }
     })
 

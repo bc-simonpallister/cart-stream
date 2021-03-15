@@ -14,6 +14,8 @@ router.post('/login', async function(req, res, next) {
     return res.status(403).json({"message" : "No credentials"})
   }
 
+  console.log(store_id, auth_token)
+
   try {
     const response = await axios.get(`https://api.bigcommerce.com/stores/${store_id}/v3/customers?limit=1`, {
       method: 'get',

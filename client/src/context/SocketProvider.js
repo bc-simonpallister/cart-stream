@@ -5,8 +5,10 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 const ENDPOINT = "http://localhost:3000";
-const auth_token = process.env.ACCESS_TOKEN
-const store_id = process.env.STORE_ID
+// const store_id = 'e73sh90yy2'
+// const auth_token = 'syhrfbk25vci5avdz8ln8yo61ygt83e'
+const store_id = process.env.REACT_APP_STORE_ID
+const auth_token = process.env.REACT_APP_ACCESS_TOKEN
 
 const SocketContext = React.createContext()
 
@@ -19,6 +21,8 @@ export function SocketProvider({ children }) {
   const [token, setToken] = useState()
   const [socketStatus, setSocketStatus] = useState('Disconnected')
   const [systemMessage, setSystemMessage] = useState('')
+
+  console.log(auth_token, store_id )
 
   useEffect(() => {
 
