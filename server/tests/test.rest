@@ -104,8 +104,3 @@ Content-Type: application/json
 DELETE {{url}}/hooks/21304802
 X-Auth-token: {{$dotenv ACCESS_TOKEN}}
 Content-Type: application/json
-
-###
-POST https://sqs.ap-southeast-2.amazonaws.com/763001036072/abandoned_carts?action=sendmessage
-
-<something/>
