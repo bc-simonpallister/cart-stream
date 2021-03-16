@@ -1,6 +1,6 @@
 @url=https://api.bigcommerce.com/stores/{{$dotenv STORE_ID}}/{{version}}
 @version=v3
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoX3Rva2VuIjoic3locmZiazI1dmNpNWF2ZHo4bG44eW82MXlndDgzZSIsInN0b3JlX2lkIjoiZTczc2g5MHl5MiIsImlhdCI6MTYxMTg4ODQ1NSwiZXhwIjoxNjE0NDgwNDU1fQ.vYw1JyWeGyqXPSVvTzrOCxeeEODSZ8BSSVUnuS5WdMI
+@token={{$dotenv TOKEN}}
 
 POST http://localhost:3000/listen
 Content-Type: application/json
@@ -93,7 +93,7 @@ Content-Type: application/json
 
 {
   "scope": "store/cart/*",
-  "destination": "https://breezy-frog-26.loca.lt/listen",
+  "destination": "https://cart-stream.loca.lt/listen",
   "headers" : {
       "authorization" : "Bearer {{token}}"
   },
